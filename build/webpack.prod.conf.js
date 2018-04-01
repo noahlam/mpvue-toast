@@ -49,12 +49,12 @@ var webpackConfig = merge(baseWebpackConfig, {
         safe: true
       }
     }),
-    // generate dist index.html with correct asset hash for caching.
-    // you can customize output by editing /index.html
+    // generate dist example.html with correct asset hash for caching.
+    // you can customize output by editing /example.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     // new HtmlWebpackPlugin({
-    //   filename: config.build.index,
-    //   template: 'index.html',
+    //   filename: config.build.example,
+    //   template: 'example.html',
     //   inject: true,
     //   minify: {
     //     removeComments: true,

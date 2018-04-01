@@ -1,9 +1,11 @@
 {
   "name": "mptoast",
-  "version": "1.0.0",
+  "version": "1.0.8",
   "description": "a toast component for mpvue",
+  "files": [
+    "index.vue","registry.js"
+  ],
   "author": "noahlam",
-  "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
@@ -11,7 +13,8 @@
   },
   "dependencies": {
     "mpvue": "^1.0.6",
-    "vuex": "^2.3.1"
+    "vuex": "^2.3.1",
+    "mptoast": "*"
   },
   "devDependencies": {
     "mpvue-loader": "^1.0.8",
