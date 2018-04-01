@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import App from './App'
-import mptoast from '@/components/mptoast'
-mptoast.registry()
+
+import mpvueToastRegistry from '__ROOT__/registry'
+mpvueToastRegistry(Vue)
+
 Vue.config.productionTip = false
 App.mpType = 'app'
 

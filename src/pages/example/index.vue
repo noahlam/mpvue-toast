@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import mptoast from '@/components/mptoast'
+import mptoast from '__ROOT__/index'
 
 export default {
   // 这里我个人的建议是把 components放在第一个,这样能比较有效的避免import的时候，忘了注册
@@ -19,7 +19,7 @@ export default {
 
   methods: {
     showToast () {
-      this.$mptoast('我是弹窗内容222')
+      this.$mptoast('我是弹窗内容')
     },
   }
 }
