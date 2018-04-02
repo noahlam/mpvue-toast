@@ -5,7 +5,12 @@
   "files": [
     "index.vue","registry.js"
   ],
-  "author": "noahlam",
+  "repository": {
+    "url": "https://github.com/noahlam/mpvue-toast.git",
+    "type": "git"
+  },
+  "author": "noahlam <284516433@qq.com>",
+  "license": "MIT",
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
