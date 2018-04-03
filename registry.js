@@ -55,9 +55,9 @@ export default function registry(v) {
     }
   })
   // 注册显示方法 $mptoast 到全局
-  v.prototype.$mptoast = function (data, duration = 1500, icon = '', textClass = '',iconClass= '') {
+  v.prototype.$mptoast = function (data, icon = '', duration = 1500, textClass = '',iconClass= '') {
     if (typeof data === 'string' || typeof data === 'number') {
-      v.prototype.$toastStore.commit('showToast', {text: data, duration: duration, icon:icon, textClass: textClass, iconClass: iconClass})
+      v.prototype.$toastStore.commit('showToast', {text: data, icon:icon, duration: duration, textClass: textClass, iconClass: iconClass})
     }
     if (typeof data === 'object') {
       v.prototype.$toastStore.commit('showToast', data)

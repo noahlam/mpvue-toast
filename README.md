@@ -18,8 +18,10 @@ mptoast 是一个基于mpvue的简单弹窗组件  github地址：[https://githu
 2.安装`mptoast`
 
     npm i mptoast -D
+
 或者
-   yarn add mptoast --dev
+
+    yarn add mptoast --dev
 
 3.在项目的主配置文件`（一般位于src/main.js）`加入以下代码
 
@@ -63,22 +65,22 @@ mptoast 是一个基于mpvue的简单弹窗组件  github地址：[https://githu
 | 参数位置 | 参数类型 | 参数名称 |是否必填  | 默认值  |  其他说明  |
 |:-------:|:------:|:------:|:-------:|:-------:|:-----------|
 |     1   | string | 显示文本 |   是     |   -   |  如果第一个参数不是string或number类型，则会被当作对象来处理，也就是上面提到的另一种情况  |
-|     2   | number | 关闭时间 |   否     | 1500   |  单位是毫秒ms,传其他格式（非number类型）会报错      |
-|     3   | stirng | 显示图标类型 |   否     |   -   |  3种可选 'success','error','info'      |
+|     2   | stirng | 显示图标类型 |   否     |   -   |  3种可选 'success','error','info'      |
+|     3   | number | 关闭时间 |   否     | 1500   |  单位是毫秒ms,传其他格式（非number类型）会报错      |
 |     4   | string | 文本样式类名 |   否     |   -   |  如果需要自定义显示的样式，请先定一个样式类，然后把类名传给该参数，定义类的时候，如果所有页面都使用这个类，必须定义为全局的,如果定义在scope作用域内的话，子组件不能复用父组件的样式。      |
 |     5   | string | icon样式类名 |   否     |   -   |  同上，需要注意的是icon是包含在文本里面的      |
 
 以下代码是一个多个参数调用的简单实例
 
-    this.$mptoast('温馨提示', 2000, 'success')
+    this.$mptoast('温馨提示', 'success', 2000)
 
 二， 单个object对象
 object对象参数的功能，其实跟上面`多个参数`的对应的功能是一样的，只是写法不同而已，我们直接看代码
 
     this.$mptoast({
       text: '温馨提示',        // 显示文本
-      duration:  2000,        // 关闭时间
       icon:'success'          // 图标类型
+      duration:  2000,        // 关闭时间
       textClass: 'my-class'   // 样式类名
       iconClass: 'icon-class' // 图标类名
     })
