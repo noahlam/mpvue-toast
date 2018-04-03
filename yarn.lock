@@ -3270,6 +3270,14 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
+mptoast@*:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/mptoast/-/mptoast-1.1.1.tgz#6097bba1acfa542bab6eb3da42de20f156ceb8b5"
+  dependencies:
+    mptoast "*"
+    mpvue "^1.0.6"
+    vuex "^2.3.1"
+
 mpvue-loader@^1.0.8:
   version "1.0.10"
   resolved "http://registry.npm.taobao.org/mpvue-loader/download/mpvue-loader-1.0.10.tgz#bf78263688478a5968487cd5652cad414114c47f"

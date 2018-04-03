@@ -19,8 +19,21 @@ export default {
 
   methods: {
     showToast () {
-      this.$mptoast('我是弹窗内容')
+      this.$mptoast('我是弹窗内容',1500,'success')
+      // this.$mptoast('我是弹窗内容',5000,'info','abcabc','iconClass')
+      // this.$mptoast({text: '我是弹窗内容', duration: 5000, icon:'info', textClass: 'abcabc', iconClass: 'iconClass'})
     },
   }
 }
 </script>
+
+<style>
+  .abcabc{
+    background: red;
+    color: green;
+  }
+  .iconClass{
+    background: aqua;
+    width: 500rpx;
+  }
+</style>

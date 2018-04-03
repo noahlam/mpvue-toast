@@ -1,12 +1,16 @@
 <template>
-  <view  style="" :class="textClass" v-if="show">{{text}}</view>
+  <view  style="" :class="textClass" v-if="show">
+    <image :class="iconClass" :src="icon" v-if="icon"></image>
+    {{text}}
+  </view>
 </template>
 
 <script type="text/ecmascript-6">
+  import icons from './icons'
   export default {
     data () {
       return {
-        animateShow: false
+        animateShow: false,
       }
     },
     computed:{
@@ -25,17 +29,33 @@
       text() {
         return this.$toastStore.getters.GET_TOAST_TEXT
       },
+      icon () {
+        let icon = this.$toastStore.getters.GET_TOAST_ICON
+        let iconNames = new Set(['success','error','info'])
+        if (iconNames.has(icon)) {
+          return icons[icon]
+        }else {
+          return false
+        }
+      },
       textClass() {
-
         let normalClass = this.$toastStore.getters.GET_TOAST_TEXT_CLASS_NAME  || '__toast_text__'
         let animatClass = this.animateShow ? ' enterAni' : ' fadeAni'
         return normalClass + animatClass
+      },
+      iconClass() {
+        return this.$toastStore.getters.GET_TOAST_ICON_CLASS_NAME  || '__toast_image__'
       }
     },
   }
 </script>
 
 <style scoped>
+  .__toast_image__{
+    width: 75rpx;
+    height: 75rpx;
+    margin-bottom: 10rpx;
+  }
   .__toast_text__{
     min-height: 60rpx;
     min-width: 150rpx;
@@ -49,6 +69,7 @@
     top:50%;
     left: 50%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     transform: translate(-50%, -50%) ;

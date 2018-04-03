@@ -9,10 +9,9 @@ export default function registry(v) {
       show:false,
       text:'提示',
       duration: 1500,
-      modalStyles:null,
-      modalClass:null,
-      textStyles:null,
-      textClass:null
+      textClass:null,
+      icon:null,
+      iconClass:null,
     },
     getters:{
       'GET_TOAST_SHOW': function (state) {
@@ -27,6 +26,14 @@ export default function registry(v) {
       'GET_TOAST_TEXT_CLASS_NAME': function (state) {
         return state.textClass
       },
+      'GET_TOAST_ICON': function (state) {
+        return state.icon
+      },
+      'GET_TOAST_ICON_CLASS_NAME': function (state) {
+        return state.iconClass
+      },
+
+
     },
     mutations: {
       hideToast(state) {
@@ -40,15 +47,17 @@ export default function registry(v) {
           text: data.text || '提示',
           duration: data.duration + 700,
           textClass: data.textClass || '',
+          icon:data.icon || '',
+          iconClass:data.iconClass || '',
         }
         state = Object.assign(state, dt)
       }
     }
   })
   // 注册显示方法 $mptoast 到全局
-  v.prototype.$mptoast = function (data, duration = 1500, textClass = '') {
+  v.prototype.$mptoast = function (data, duration = 1500, icon = '', textClass = '',iconClass= '') {
     if (typeof data === 'string' || typeof data === 'number') {
-      v.prototype.$toastStore.commit('showToast', {text: data, duration: duration, textClass: textClass})
+      v.prototype.$toastStore.commit('showToast', {text: data, duration: duration, icon:icon, textClass: textClass, iconClass: iconClass})
     }
     if (typeof data === 'object') {
       v.prototype.$toastStore.commit('showToast', data)
