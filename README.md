@@ -1,5 +1,5 @@
 ### 介绍
-mptoast 是一个基于mpvue的简单弹窗组件
+mptoast 是一个基于mpvue的简单弹窗组件  github地址：[https://github.com/noahlam/mpvue-toast](https://github.com/noahlam/mpvue-toast)
 
 ### 特性
 0. **轻量** 目前整个项目`未打包前`大概只有`120行`代码(包括注释)，5kb左右(包括图标)
