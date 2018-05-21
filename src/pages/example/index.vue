@@ -19,7 +19,7 @@ export default {
 
   methods: {
     showToast () {
-      this.$mptoast('温馨提示', 'success', 2000)
+      this.$mptoast('请输入正确网址，如xxxx.com', 'none', 2000)
       // this.$mptoast('我是弹窗内容','info', 5000, 'abcabc','iconClass')
       // this.$mptoast({text: '我是弹窗内容', icon:'info', duration: 5000, textClass: 'abcabc', iconClass: 'iconClass'})
     },
