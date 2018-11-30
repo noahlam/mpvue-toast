@@ -1,0 +1,8 @@
+{
+  "pages": [
+    "pages/index/main"
+  ],
+  "window": {
+    "navigationBarTitleText": "mp-toast test"
+  }
+}

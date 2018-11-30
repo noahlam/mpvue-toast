@@ -1,61 +1,85 @@
-var utils = require('./utils')
 var webpack = require('webpack')
-var config = require('../config')
-var merge = require('webpack-merge')
-var baseWebpackConfig = require('./webpack.base.conf')
-// var HtmlWebpackPlugin = require('html-webpack-plugin')
-var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-
-// copy from ./webpack.prod.conf.js
-var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var path = require('path')
+var MpvuePlugin = require('webpack-mpvue-asset-plugin')
+var glob = require('glob')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
-var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var relative = require('relative')
 
-// add hot-reload related code to entry chunks
-// Object.keys(baseWebpackConfig.entry).forEach(function (name) {
-//   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
-// })
-
-module.exports = merge(baseWebpackConfig, {
-  module: {
-    rules: utils.styleLoaders({
-      sourceMap: config.dev.cssSourceMap,
-      extract: true
+function getEntry(rootSrc) {
+  var map = {};
+  glob.sync(rootSrc + '/pages/**/main.js')
+    .forEach(file => {
+      var key = relative(rootSrc, file).replace('.js', '');
+      map[key] = file;
     })
-  },
-  // cheap-module-eval-source-map is faster for development
-  // devtool: '#cheap-module-eval-source-map',
-  devtool: '#source-map',
+  return map;
+}
+
+const appEntry = {app: path.join(__dirname,'../example/main.js')}
+const pagesEntry = getEntry(path.join(__dirname,'../example'), 'pages/**/main.js')
+const entry = Object.assign({}, appEntry, pagesEntry)
+
+
+module.exports = {
+  entry,
+  target: require('mpvue-webpack-target'),
   output: {
-    path: config.build.assetsRoot,
-    // filename: utils.assetsPath('js/[name].[chunkhash].js'),
-    // chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
-    filename: utils.assetsPath('js/[name].js'),
-    chunkFilename: utils.assetsPath('js/[id].js')
+    path: path.resolve(__dirname, '../dist'),
+    filename: '[name].js',
+    publicPath: '/'
+  },
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      'vue': 'mpvue',
+      '@': path.join(__dirname, '../example')
+    },
+  },
+  devtool: '#source-map',
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'mpvue-loader',
+        options: {
+          loaders: {
+            css: ExtractTextPlugin.extract({
+              use: [{loader: 'css-loader',}, {loader: 'px2rpx-loader',}],
+              fallback: 'vue-style-loader'
+            })
+          }
+        }
+      },
+      {
+        test: /\.js$/,
+        include: [path.join(__dirname,'../example'), path.join(__dirname, '../test')],
+        use: [
+          'babel-loader',
+          {
+            loader: 'mpvue-loader',
+            options: {
+              checkMPEntry: true
+            }
+          },
+        ]
+      }
+    ]
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': config.dev.env
+    new MpvuePlugin(),
+    new CopyWebpackPlugin([{
+      from: '**/*.json',
+      to: ''
+    }], {
+      context: 'example/'
     }),
-
-    // copy from ./webpack.prod.conf.js
-    // extract css into its own file
     new ExtractTextPlugin({
-      // filename: utils.assetsPath('css/[name].[contenthash].css')
-      filename: utils.assetsPath('css/[name].wxss')
-    }),
-    // Compress extracted CSS. We are using this plugin so that possible
-    // duplicated CSS from different components can be deduped.
-    new OptimizeCSSPlugin({
-      cssProcessorOptions: {
-        safe: true
-      }
+      filename: path.posix.join('','[name].wxss')
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
+      name: 'common/vendor',
       minChunks: function (module, count) {
-        // any required modules inside node_modules are extracted to vendor
         return (
           module.resource &&
           /\.js$/.test(module.resource) &&
@@ -63,28 +87,5 @@ module.exports = merge(baseWebpackConfig, {
         ) || count > 1
       }
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      chunks: ['vendor']
-    }),
-    // copy custom static assets
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, '../static'),
-        to: config.build.assetsSubDirectory,
-        ignore: ['.*']
-      }
-    ]),
-
-    // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
-    // new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    // https://github.com/ampedandwired/html-webpack-plugin
-    // new HtmlWebpackPlugin({
-    //   filename: 'example.html',
-    //   template: 'example.html',
-    //   inject: true
-    // }),
-    new FriendlyErrorsPlugin()
   ]
-})
+}

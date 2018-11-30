@@ -25,7 +25,7 @@ mptoast 是一个基于mpvue的简单弹窗组件  github地址：[https://githu
 
 3.在项目的主配置文件`（一般位于src/main.js）`加入以下代码
 
-    import mpvueToastRegistry from 'mptoast'
+    import mpvueToastRegistry from 'mptoast/src/registry'
     mpvueToastRegistry(Vue)
 
 4.在你需要弹窗的页面，引入组件，并注册，然后在页面内加入一个你注册的组件，就可以在js里面调用`this.$mptoast()`了， 以下是一个简单的实例
@@ -69,6 +69,7 @@ mptoast 是一个基于mpvue的简单弹窗组件  github地址：[https://githu
 |     3   | number | 关闭时间 |   否     | 1500   |  单位是毫秒ms,传其他格式（非number类型）会报错      |
 |     4   | string | 文本样式类名 |   否     |   -   |  如果需要自定义显示的样式，请先定一个样式类<br>然后把类名传给该参数，定义类的时候<br>如果所有页面都使用这个类,必须定义为全局的<br>如果定义在scope作用域内的话<br>子组件不能复用父组件的样式。      |
 |     5   | string | icon样式类名 |   否     |   -   |  同上，需要注意的是icon是包含在文本里面的      |
+|     6   |function| 回掉函数 |   否     |   -   |  toast 隐藏时的回调hanshu      |
 
 以下代码是一个多个参数调用的简单实例
 
@@ -83,6 +84,7 @@ object对象参数的功能，其实跟上面`多个参数`的对应的功能是
       duration:  2000,        // 关闭时间
       textClass: 'my-class'   // 样式类名
       iconClass: 'icon-class' // 图标类名
+      callback: () => { console.log('隐藏')}
     })
 
 需要注意的是，以上参数，如果传入错误的类型，先会进行类型转换，如果转换失败的，可能会报错。

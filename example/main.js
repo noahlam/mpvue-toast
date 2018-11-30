@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 
-import mpvueToastRegistry from '__ROOT__/registry'
+import mpvueToastRegistry from '../src/registry'
 mpvueToastRegistry(Vue)
 
 Vue.config.productionTip = false

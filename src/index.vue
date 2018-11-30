@@ -21,7 +21,11 @@
         if(show) {
           setTimeout(() => {
             this.animateShow = false
-            setTimeout(() => {this.$toastStore.commit('hideToast')}, 350 )
+            setTimeout(() => {
+              this.$toastStore.commit('hideToast')
+              this.$toastStore.commit('callback')
+              }, 350
+            )
           }, delay - 350 )
         }
         return show

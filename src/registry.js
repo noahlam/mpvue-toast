@@ -12,6 +12,7 @@ export default function registry(v) {
       textClass:null,
       icon:null,
       iconClass:null,
+      callback: null
     },
     getters:{
       'GET_TOAST_SHOW': function (state) {
@@ -49,15 +50,28 @@ export default function registry(v) {
           textClass: data.textClass || '',
           icon:data.icon || '',
           iconClass:data.iconClass || '',
+          callback: data.callback || null
         }
         state = Object.assign(state, dt)
+      },
+      callback(state) {
+        let cb = state.callback
+        cb && cb()
       }
     }
   })
   // 注册显示方法 $mptoast 到全局
-  v.prototype.$mptoast = function (data, icon = '', duration = 1500, textClass = '',iconClass= '') {
+  v.prototype.$mptoast = function (data, icon = '', duration = 1500, textClass = '',iconClass = '', callback = null) {
     if (typeof data === 'string' || typeof data === 'number') {
-      v.prototype.$toastStore.commit('showToast', {text: data, icon:icon, duration: duration, textClass: textClass, iconClass: iconClass})
+      let _data = {
+        text: data,
+        icon,
+        duration,
+        textClass,
+        iconClass,
+        callback
+      }
+      v.prototype.$toastStore.commit('showToast', _data)
     }
     if (typeof data === 'object') {
       v.prototype.$toastStore.commit('showToast', data)
